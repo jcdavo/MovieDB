@@ -1,0 +1,30 @@
+<%- include("partials/header") %>
+
+<div class="container">
+  <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+    <% if (data.Response === "False" ) { %>
+    <% console.log(data.Error) %>
+    <h2> <%= data.Error %> </h2>
+    <% } else { %>
+    <% data.Search.forEach(movie => { %>
+    <div class="col colConfig">
+      <%if (movie.Poster === "N/A") {%>
+      <img src="noPoster.png" alt="">
+      <%} else {%>
+      <img src="<%= movie.Poster %>" alt="">
+      <%}%>
+      <p><strong><%= movie.Title %></strong></p>
+      <p><%= movie.Year %></p>
+    </div>
+    <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<div class="container" id="searchAgainBut">
+  <a role="button" class="btn-lg btn-primary" href="/">Search
+    Again</a>
+</div>
+
+
+<%- include("partials/footer") %>
