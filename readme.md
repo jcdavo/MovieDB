@@ -16,3 +16,4 @@
 # Things to implement
 
 - Pagination, might have to create logic with a page variable to check if page is assigned
+  <input type="submit" name="num" value="2"> (possible solution).
