@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const fetch = require("node-fetch");
-const bodyParser = require("body-parser");
-app.use(express.static("public"));
-app.set("view engine", "ejs");
+const fetch = require('node-fetch');
+const bodyParser = require('body-parser');
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 // Tell Express to use body-parser
 app.use(
   bodyParser.urlencoded({
@@ -16,10 +16,10 @@ app.use(
 //   console.log(newUrl);
 // });
 
-app.get("/", (req, res) => {
-  var h1Tittle = "Davo Movie Database";
-  var slogan = "Movie and Tv Show DataBase";
-  res.render("search", {
+app.get('/', (req, res) => {
+  var h1Tittle = 'Davo Movie Database';
+  var slogan = 'Movie and Tv Show DataBase';
+  res.render('search', {
     h1Tittle: h1Tittle,
     paragraph: slogan,
   });
@@ -39,39 +39,39 @@ function compare(a, b) {
   return comparison * -1;
 }
 
-app.get("/results", (req, res) => {
+app.get('/results', (req, res) => {
   var search = req.query.search;
   var url = `http://www.omdbapi.com/?s=${search}&apikey=thewdb`;
-  var h1Tittle = "Search Results";
+  var h1Tittle = 'Search Results';
   var paragraph = `Search results for ${search.toUpperCase()}`;
   var totalResults = 0;
   fetch(url)
-    .then((body) => body.json())
-    .then((data) => {
-      if (data.Response === "True") {
+    .then(body => body.json())
+    .then(data => {
+      if (data.Response === 'True') {
         // Sort by year calling a compare function to the JSON
         // data.Search.sort(compare);
         // Single line to call a function
         data.Search.sort((a, b) => (a.Year > b.Year ? -1 : 1));
         totalResults = data.totalResults;
-        res.render("results", {
+        res.render('results', {
           data: data,
           h1Tittle: h1Tittle,
           paragraph: paragraph,
         });
       } else {
-        res.render("results", {
+        res.render('results', {
           data: data,
           h1Tittle: h1Tittle,
           paragraph: data.Error,
         });
       }
     })
-    .catch((err) => {
-      console.log("Error!", err);
+    .catch(err => {
+      console.log('Error!', err);
     });
 });
 
-app.listen(process.env.PORT || 3000, process.env.IP, () => {
-  console.log("Now serving port 3000");
+app.listen(process.env.PORT || 3050, process.env.IP, () => {
+  console.log('Now serving port 3050');
 });
